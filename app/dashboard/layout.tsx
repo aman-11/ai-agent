@@ -2,6 +2,8 @@
 
 import Header from "@/components/Header";
 import { Authenticated } from "convex/react";
+import { NavigationProvider } from "@/lib/NavigationProvider";
+import Sidebar from "@/components/Sidebar";
 
 export default function DashboardLayout({
   children,
@@ -9,15 +11,16 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-screen">
-      <Authenticated>
-        <h1>Sidebar</h1>
-        {/*<Sidebar/>*/}
-      </Authenticated>
-      <main>
-        <Header />
-        {children}
-      </main>
-    </div>
+    <NavigationProvider>
+      <div className="flex h-screen">
+        <Authenticated>
+          <Sidebar/>
+        </Authenticated>
+        <div className="flex-1 flex flex-col min-w-0">
+          <Header />
+          <main>{children}</main>
+        </div>
+      </div>
+    </NavigationProvider>
   );
 }
